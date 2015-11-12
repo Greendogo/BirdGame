@@ -1,0 +1,15 @@
+Port 1 will have 4 pins I use input (rows)
+Port 2 will have 3 pins I use output (columns)
+
+for(Port 2 pin i = 1; i <= 3; i++)
+{
+	set Port2<i> to low;
+	for(Port 1 pin j = 1; j <= 4; j++)
+	{
+		if(Port 1 pin j is low, button at (i,j) is pressed.
+	}
+	set Port2<i> to high;
+}
+
+Port 1 will be Port E pin 12 to 15 (3 to 0 "pins" respectively) as input
+Port 2 will be Port B pin 16 to 18 (3 to 1 "pins" respectively) as output

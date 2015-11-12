@@ -1,0 +1,62 @@
+Rows are set to input
+Columns are set to output
+
+For(each Pin, i, in columns)
+{
+	Set Pin<i> to Low; //Low is 0x00
+	For(each Pin, j, in rows)
+	{
+		if(pin<j> input == 0)
+		{
+			button (j,i) is pressed; //So save this information to an array or 
+									//something so you can keep track of button presses for this tick and the last;
+		}
+	}
+	Set Pin<i> to High; //High will depend on what pin it is, for example, for pin 3, high will be 2^3, so 0x08
+}
+
+Port B
+0	
+1	
+2	
+3	
+4	
+5	
+6	
+7	
+Port E
+0	
+1	
+2	
+3	
+4	
+5	
+6	
+7	
+
+Pin Layout:
+Row 0 to 19
+Row 1 to 18
+Row 2 to 17
+Row 3 to 16
+
+Col 0 to 15
+Col 1 to 14
+Col 2 to 13
+
+9 columns by 4 rows
+Random positions for:
+1 Momma Bird: @
+1 Baby Bird: &
+3 to 7 worms: ~
+	floor(#worms/2) hidden by dirt: % or #
+2 extra pieces of dirt: % or #
+	
+Bottom message area either says:
+	Empty Message 0
+	Worms: 0 to 7 out of 3 to 7//Normal and after moving when Worm Found! was displayed 1
+	Drop Worms: # //When you have worms and are standing on the baby 2
+	Peck Dirt: * //When standing on dirt 3
+	Worm Found!  //If you found a worm when you pecked dirt 4
+	Go to your baby bird! //When you have all the worms you need! 5
+	Baby's Full! You Win! //When you feed your baby all the worms she needs and you win! 6
