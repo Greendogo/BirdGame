@@ -9,6 +9,7 @@
 #include "src/buttons.h"
 #include "src/buttons.h"
 #include "src/game.h"
+#include "src/speaker.h"
 
 //*************************************************************************************************
 //	Main program to initialize hardware and execute Tasks.
@@ -19,6 +20,7 @@ void main(void)  {
 	xTaskCreate(LEDTask, "LEDTask", 32, NULL, 1, NULL);
 	xTaskCreate(buttonsTask, "buttonsTask", 256, NULL, 1, NULL);
 	xTaskCreate(gameTask, "gameTask", 512, NULL, 2, NULL);
+	xTaskCreate(speakerTask, "speakerTask", 32, NULL, 2, NULL);
 
 
 	//  Initialize system

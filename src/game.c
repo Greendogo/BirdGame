@@ -17,6 +17,7 @@
 
 #include "stdlib.h"
 #include "time.h"
+#include "speaker.h"
 
 int piecesArray[9][4];
 //empty space = 0
@@ -55,6 +56,7 @@ void gameTask(void *pvParameters)
 	createBoard();
 
 	while(true) {
+		speakerPlay = 0;
 		if(NORTH == 1)
 		{
 			setPlayer(getPlayerCol(), getPlayerRow() - 1);
@@ -95,34 +97,38 @@ void gameTask(void *pvParameters)
 			setPlayer(getPlayerCol() - 1, getPlayerRow() - 1);
 			NORTHWEST = 0;
 		}
-		if(ASTERISK == 1 && babyCarryFlag != 1)
+		if(ASTERISK == 1)
 		{
 			if(gameOver == 1 || gameOver == 2 || gameOver == 4)
 			{
 				gameOver = 3;
 			}
-			else if(piecesArray[getPlayerCol()][getPlayerRow()] == 8)
+			else if(babyCarryFlag != 1)
 			{
-				piecesArray[getPlayerCol()][getPlayerRow()] = 1;
-				setMessage(7);
-			}
-			else if(piecesArray[getPlayerCol()][getPlayerRow()] == 9)
-			{
-				piecesArray[getPlayerCol()][getPlayerRow()] = 1;
-				wormsFound++;
-				setMessage(4);
-			}
-			else if(piecesArray[getPlayerCol()][getPlayerRow()] == 11 && babyCarryFlag == 2)
-			{
-				dropBaby();
-				babyCarryFlag = 0;
-				setMessage(16);
-			}
-			else if(piecesArray[getPlayerCol()][getPlayerRow()] == 15 && babyCarryFlag == 2)
-			{
-				dropBaby();
-				babyCarryFlag = 0;
-				setMessage(16);
+				if(piecesArray[getPlayerCol()][getPlayerRow()] == 8)
+				{
+					piecesArray[getPlayerCol()][getPlayerRow()] = 1;
+					setMessage(7);
+				}
+				else if(piecesArray[getPlayerCol()][getPlayerRow()] == 9)
+				{
+					piecesArray[getPlayerCol()][getPlayerRow()] = 1;
+					speakerPlay = 1;
+					wormsFound++;
+					setMessage(4);
+				}
+				else if(piecesArray[getPlayerCol()][getPlayerRow()] == 11 && babyCarryFlag == 2)
+				{
+					dropBaby();
+					babyCarryFlag = 0;
+					setMessage(16);
+				}
+				else if(piecesArray[getPlayerCol()][getPlayerRow()] == 15 && babyCarryFlag == 2)
+				{
+					dropBaby();
+					babyCarryFlag = 0;
+					setMessage(16);
+				}
 			}
 			ASTERISK = 0;
 		}
