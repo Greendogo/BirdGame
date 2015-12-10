@@ -21,5 +21,8 @@ extern void OLEDTask(void*);
 void drawGrid();
 void drawPieces();
 void drawMessage();
+void drawHunger();
+void drawPiece(char type, unsigned long ulx, unsigned long uly);
+void drawPopup(int x, int y, int length, char* text);
 
 #endif /* OLED_H_ */

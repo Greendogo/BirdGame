@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>EECS_388_P6</name>
+	<name>EECS_388_P9</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -84,6 +84,16 @@
 			<name>src/FreeRTOS/timers.c</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/TI_CCS_Archive/FreeRTOS/timers.c</locationURI>
+		</link>
+		<link>
+			<name>src/LM3S1968_Drivers/random.c</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/TI_CCS_Archive/LM3S1968_Drivers/random.c</locationURI>
+		</link>
+		<link>
+			<name>src/LM3S1968_Drivers/random.h</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/TI_CCS_Archive/LM3S1968_Drivers/random.h</locationURI>
 		</link>
 		<link>
 			<name>src/LM3S1968_Drivers/rit128x96x4.c</name>

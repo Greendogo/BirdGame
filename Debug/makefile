@@ -14,6 +14,7 @@ ORDERED_OBJS += \
 "./src/led.obj" \
 "./src/oled.obj" \
 "./src/system.obj" \
+"./src/LM3S1968_Drivers/random.obj" \
 "./src/LM3S1968_Drivers/rit128x96x4.obj" \
 "./src/LM3S1968_Drivers/uartstdio.obj" \
 "./src/FreeRTOS/croutine.obj" \
@@ -152,47 +153,47 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXE_OUTPUTS += \
-EECS_388_P6.out \
+EECS_388_P9.out \
 
 EXE_OUTPUTS__QUOTED += \
-"EECS_388_P6.out" \
+"EECS_388_P9.out" \
 
 BIN_OUTPUTS += \
-EECS_388_P6.bin \
+EECS_388_P9.bin \
 
 BIN_OUTPUTS__QUOTED += \
-"EECS_388_P6.bin" \
+"EECS_388_P9.bin" \
 
 
 # All Target
-all: EECS_388_P6.out
+all: EECS_388_P9.out
 
 # Tool invocations
-EECS_388_P6.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
+EECS_388_P9.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: ARM Linker'
-	"C:/TI_CodeComposer/ccsv6/tools/compiler/ti-cgt-arm_5.2.2/bin/armcl" -mv7M3 --code_state=16 --float_support=vfplib --abi=eabi -me -g --gcc --define=CCS6_ARMCM3 --define="ccs" --define=PART_LM3S1968 --display_error_number --emit_warnings_as_errors --diag_suppress=179 --diag_wrap=off --printf_support=full -z -m"EECS_388_P6.map" --heap_size=4096 --stack_size=4096 -i"C:/TI_CodeComposer/ccsv6/tools/compiler/ti-cgt-arm_5.2.2/lib" -i"C:/TI_CodeComposer/ccsv6/tools/compiler/ti-cgt-arm_5.2.2/include" --reread_libs --warn_sections --display_error_number --emit_warnings_as_errors --xml_link_info="EECS_388_P6_linkInfo.xml" --rom_model -o "EECS_388_P6.out" $(ORDERED_OBJS)
+	"C:/TI_CodeComposer/ccsv6/tools/compiler/ti-cgt-arm_5.2.2/bin/armcl" -mv7M3 --code_state=16 --float_support=vfplib --abi=eabi -me -g --gcc --define=CCS6_ARMCM3 --define="ccs" --define=PART_LM3S1968 --display_error_number --emit_warnings_as_errors --diag_suppress=179 --diag_wrap=off --printf_support=full -z -m"EECS_388_P9.map" --heap_size=4096 --stack_size=4096 -i"C:/TI_CodeComposer/ccsv6/tools/compiler/ti-cgt-arm_5.2.2/lib" -i"C:/TI_CodeComposer/ccsv6/tools/compiler/ti-cgt-arm_5.2.2/include" --reread_libs --warn_sections --display_error_number --emit_warnings_as_errors --xml_link_info="EECS_388_P9_linkInfo.xml" --rom_model -o "EECS_388_P9.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 	@$(MAKE) --no-print-directory post-build
 
-EECS_388_P6.bin: $(EXE_OUTPUTS)
+EECS_388_P9.bin: $(EXE_OUTPUTS)
 	@echo 'Invoking: ARM Hex Utility'
-	"C:/TI_CodeComposer/ccsv6/tools/compiler/ti-cgt-arm_5.2.2/bin/armhex"  -o "EECS_388_P6.bin" $(EXE_OUTPUTS__QUOTED)
+	"C:/TI_CodeComposer/ccsv6/tools/compiler/ti-cgt-arm_5.2.2/bin/armhex"  -o "EECS_388_P9.bin" $(EXE_OUTPUTS__QUOTED)
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)$(BIN_OUTPUTS__QUOTED)
-	-$(RM) "main.pp" "targetConfigs\lm3s1968_startup_ccs.pp" "src\buttons.pp" "src\game.pp" "src\led.pp" "src\oled.pp" "src\system.pp" "src\LM3S1968_Drivers\rit128x96x4.pp" "src\LM3S1968_Drivers\uartstdio.pp" "src\FreeRTOS\croutine.pp" "src\FreeRTOS\event_groups.pp" "src\FreeRTOS\list.pp" "src\FreeRTOS\queue.pp" "src\FreeRTOS\tasks.pp" "src\FreeRTOS\timers.pp" "src\FreeRTOS\portable\CCS6\ARM_CM4F\port.pp" "src\FreeRTOS\portable\CCS6\ARM_CM3\port.pp" "src\FreeRTOS\portable\CCS5\ARM_CM3\port.pp" "src\FreeRTOS\include\heap_2.pp" 
+	-$(RM) "main.pp" "targetConfigs\lm3s1968_startup_ccs.pp" "src\buttons.pp" "src\game.pp" "src\led.pp" "src\oled.pp" "src\system.pp" "src\LM3S1968_Drivers\random.pp" "src\LM3S1968_Drivers\rit128x96x4.pp" "src\LM3S1968_Drivers\uartstdio.pp" "src\FreeRTOS\croutine.pp" "src\FreeRTOS\event_groups.pp" "src\FreeRTOS\list.pp" "src\FreeRTOS\queue.pp" "src\FreeRTOS\tasks.pp" "src\FreeRTOS\timers.pp" "src\FreeRTOS\portable\CCS6\ARM_CM4F\port.pp" "src\FreeRTOS\portable\CCS6\ARM_CM3\port.pp" "src\FreeRTOS\portable\CCS5\ARM_CM3\port.pp" "src\FreeRTOS\include\heap_2.pp" 
 	-$(RM) "src\FreeRTOS\portable\CCS6\ARM_CM4F\portasm.pp" "src\FreeRTOS\portable\CCS6\ARM_CM3\portasm.pp" "src\FreeRTOS\portable\CCS5\ARM_CM3\portasm.pp" 
-	-$(RM) "main.obj" "targetConfigs\lm3s1968_startup_ccs.obj" "src\buttons.obj" "src\game.obj" "src\led.obj" "src\oled.obj" "src\system.obj" "src\LM3S1968_Drivers\rit128x96x4.obj" "src\LM3S1968_Drivers\uartstdio.obj" "src\FreeRTOS\croutine.obj" "src\FreeRTOS\event_groups.obj" "src\FreeRTOS\list.obj" "src\FreeRTOS\queue.obj" "src\FreeRTOS\tasks.obj" "src\FreeRTOS\timers.obj" "src\FreeRTOS\portable\CCS6\ARM_CM4F\port.obj" "src\FreeRTOS\portable\CCS6\ARM_CM4F\portasm.obj" "src\FreeRTOS\portable\CCS6\ARM_CM3\port.obj" "src\FreeRTOS\portable\CCS6\ARM_CM3\portasm.obj" "src\FreeRTOS\portable\CCS5\ARM_CM3\port.obj" "src\FreeRTOS\portable\CCS5\ARM_CM3\portasm.obj" "src\FreeRTOS\include\heap_2.obj" 
+	-$(RM) "main.obj" "targetConfigs\lm3s1968_startup_ccs.obj" "src\buttons.obj" "src\game.obj" "src\led.obj" "src\oled.obj" "src\system.obj" "src\LM3S1968_Drivers\random.obj" "src\LM3S1968_Drivers\rit128x96x4.obj" "src\LM3S1968_Drivers\uartstdio.obj" "src\FreeRTOS\croutine.obj" "src\FreeRTOS\event_groups.obj" "src\FreeRTOS\list.obj" "src\FreeRTOS\queue.obj" "src\FreeRTOS\tasks.obj" "src\FreeRTOS\timers.obj" "src\FreeRTOS\portable\CCS6\ARM_CM4F\port.obj" "src\FreeRTOS\portable\CCS6\ARM_CM4F\portasm.obj" "src\FreeRTOS\portable\CCS6\ARM_CM3\port.obj" "src\FreeRTOS\portable\CCS6\ARM_CM3\portasm.obj" "src\FreeRTOS\portable\CCS5\ARM_CM3\port.obj" "src\FreeRTOS\portable\CCS5\ARM_CM3\portasm.obj" "src\FreeRTOS\include\heap_2.obj" 
 	-@echo 'Finished clean'
 	-@echo ' '
 
 post-build:
-	-"C:/TI_CodeComposer/ccsv6/utils/tiobj2bin/tiobj2bin" "EECS_388_P6.out" "EECS_388_P6.bin" "C:/TI_CodeComposer/ccsv6/tools/compiler/ti-cgt-arm_5.2.2/bin/armofd" "C:/TI_CodeComposer/ccsv6/tools/compiler/ti-cgt-arm_5.2.2/bin/armhex" "C:/TI_CodeComposer/ccsv6/utils/tiobj2bin/mkhex4bin"
+	-"C:/TI_CodeComposer/ccsv6/utils/tiobj2bin/tiobj2bin" "EECS_388_P9.out" "EECS_388_P9.bin" "C:/TI_CodeComposer/ccsv6/tools/compiler/ti-cgt-arm_5.2.2/bin/armofd" "C:/TI_CodeComposer/ccsv6/tools/compiler/ti-cgt-arm_5.2.2/bin/armhex" "C:/TI_CodeComposer/ccsv6/utils/tiobj2bin/mkhex4bin"
 	-@echo ' '
 
 .PHONY: all clean dependents

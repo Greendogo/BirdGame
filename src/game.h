@@ -13,6 +13,8 @@
 
 extern void gameTask(void*);
 
+extern void createBoard();
+
 extern int piecesArray[9][4];
 
 extern int messageFlag;
@@ -23,10 +25,27 @@ extern int wormsFed;
 
 extern int PlayerX, PlayerY;
 
+extern int playerFacingRight;
+extern int babyFacingRight;
+extern int foxFacingRight;
+
+extern unsigned long selectTimer;
+
 int getPlayerRow();
 int getPlayerCol();
 void setPlayer(int col, int row);
 void removePlayer();
 int isValid(int col, int row);
+
+void dropBaby();
+void randomPlacement(int type);
+void checkFox();
+void moveFox(int col, int row);
+
+extern int firstMove;
+extern int gameOver;
+extern int babyHunger;
+
+void setMessage(int messageNum);
 
 #endif /* SRC_GAME_H_ */
