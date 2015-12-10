@@ -143,7 +143,6 @@ void OLEDTask(void *pvParameters){
 			drawPieces();
 			drawHunger();
 			drawMessage();
-			RIT128x96x4ImageDraw(hframe, 3, 80 - 4, 128, 1);
 		}
 		if(messageFlag == 6 || messageFlag == 12 || messageFlag == 18)
 		{
@@ -161,6 +160,7 @@ void OLEDTask(void *pvParameters){
 			drawGrid();
 			createBoard();
 		}
+		//RIT128x96x4ImageDraw(hframe, 3, 80 - 4, 128, 1);
 		vTaskDelay(delay);
 	}
 }
@@ -343,14 +343,6 @@ void drawMessage()
 {
 	char wormsFoundMessage[19];
 
-	//use this to correct right frame
-	unsigned char rframe[94];
-	int i;
-	for(i = 0; i < 94; i++){
-		rframe[i] = 0x0F; 				// Vertical line for the right edge
-    	if(i < 62) blank[i] = 0x00;
-	}
-
 	if(messageFlag != lastMessage || messageFlag == 1)
 	{
 		if(messageFlag == 0)
@@ -381,11 +373,7 @@ void drawMessage()
 		if(messageFlag == 6)
 		{
 			RIT128x96x4StringDraw("      You Win!      ", 3, 80 - 2,15);
-			for(i = 24; i < 8*3; i++)
-				RIT128x96x4ImageDraw(blank, 40 - 2 - 16, i, 6*17, 1);
-			RIT128x96x4StringDraw("                 ", 3, 40 - 2 - 16,15);
-			RIT128x96x4StringDraw("    New Game: *  ", 3, 40 - 2,15);
-			RIT128x96x4StringDraw("                 ", 3, 40 - 2 + 16,15);
+			drawPopup(21, 38, 13, " New Game: * ");
 		}
 		if(messageFlag == 7)
 		{
@@ -410,11 +398,7 @@ void drawMessage()
 		if(messageFlag == 12)
 		{
 			RIT128x96x4StringDraw("      You Lose!     ", 3, 80 - 2,15);
-			for(i = 24; i < 8*3; i++)
-				RIT128x96x4ImageDraw(blank, 40 - 2 - 16, i, 6*17, 1);
-			RIT128x96x4StringDraw("                 ", 3, 40 - 2 - 16,15);
-			RIT128x96x4StringDraw("    New Game: *  ", 3, 40 - 2,15);
-			RIT128x96x4StringDraw("                 ", 3, 40 - 2 + 16,15);
+			drawPopup(21, 38, 13, " New Game: * ");
 		}
 		if(messageFlag == 13)
 		{
@@ -451,6 +435,10 @@ void drawMessage()
 			RIT128x96x4StringDraw("    Baby is full!    ", 3, 80 - 2,15);
 		}
 		RIT128x96x4ImageDraw(rframe, 127, 1, 2, 94);
+		int i = 0;
+		for(i = 3; i < 4; i++)
+			RIT128x96x4ImageDraw(hframe, 0, 80 - i, 128, 1);
+
 	}
 	lastMessage = messageFlag;
 }
