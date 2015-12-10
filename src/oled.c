@@ -373,7 +373,7 @@ void drawMessage()
 		if(messageFlag == 6)
 		{
 			RIT128x96x4StringDraw("      You Win!      ", 3, 80 - 2,15);
-			drawPopup(21, 38, 13, " New Game: * ");
+			drawPopup(21, 40, 8, " New Game: * ");
 		}
 		if(messageFlag == 7)
 		{
@@ -398,7 +398,7 @@ void drawMessage()
 		if(messageFlag == 12)
 		{
 			RIT128x96x4StringDraw("      You Lose!     ", 3, 80 - 2,15);
-			drawPopup(21, 38, 13, " New Game: * ");
+			drawPopup(21, 40, 8, " New Game: * ");
 		}
 		if(messageFlag == 13)
 		{

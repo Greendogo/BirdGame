@@ -95,7 +95,7 @@ void gameTask(void *pvParameters)
 			setPlayer(getPlayerCol() - 1, getPlayerRow() - 1);
 			NORTHWEST = 0;
 		}
-		if(ASTERISK == 1)
+		if(ASTERISK == 1 && babyCarryFlag != 1)
 		{
 			if(gameOver == 1 || gameOver == 2 || gameOver == 4)
 			{
@@ -221,7 +221,7 @@ void setPlayer(int col, int row)
 					setMessage(2);
 				}
 				else
-					setMessage(1);
+					setMessage(13);
 			}
 			else if(piecesArray[col][row] == 3)
 			{
@@ -277,7 +277,7 @@ void setPlayer(int col, int row)
 			if(firstMove == 0)
 			{
 				checkFox();
-				//babyHunger--;
+				babyHunger--; //Slowly makes the baby more hungry with every map movement!
 				if(babyHunger <= 0)
 				{
 					setMessage(18);
@@ -290,6 +290,9 @@ void setPlayer(int col, int row)
 			}
 			else
 				firstMove = 0;
+
+			if(babyCarryFlag == 1 && messageFlag == 17)
+				setMessage(14);
 		}
 	}
 
@@ -681,6 +684,10 @@ void setMessage(int messageNum)
 		;//Don't overwrite the message to Peck the wolf
 	else if(messageFlag == 11 && (messageNum != 15 && messageNum != 12 && messageNum != 6 && messageNum != 18))
 		;//Don't overwrite the message to go get the wolf
+	else if(messageFlag == 14 && (messageNum != 19 && messageNum != 18 && messageNum != 16))
+		;//Don't let anything besides hunger and dropping the baby remove the drop instructions
+	else if(messageFlag == 17 && (messageNum != 19 && messageNum != 18 && messageNum != 14))
+		;//Make sure they know they've picked up the baby!
 	else
 		messageFlag = messageNum;
 }
