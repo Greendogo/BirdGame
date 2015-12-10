@@ -42,6 +42,9 @@ void randomPlacement(int type);
 void checkFox();
 void moveFox(int col, int row);
 
+int directionBaby();
+int directionDen();
+
 extern int firstMove;
 extern int gameOver;
 extern int babyHunger;

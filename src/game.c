@@ -42,7 +42,7 @@ int foxOriginX, foxOriginY;
 int playerFacingRight;
 int babyFacingRight;
 int foxFacingRight;
-int babyCarryFlag;
+int babyCarryFlag; //0 = not carried, 1 = momma is carrying, 2 = fox is carrying
 int foxMovedLastTurn; //Used to toggle a walk/wait timing when fox has baby
 int gameOver;
 int firstMove;
@@ -153,6 +153,8 @@ void gameTask(void *pvParameters)
 				//drop baby
 				setMessage(16);
 				piecesArray[getPlayerCol()][getPlayerRow()] = 6;
+				babyX = getPlayerCol();
+				babyY = getPlayerRow();
 				babyCarryFlag = 0;
 			}
 			else if(piecesArray[getPlayerCol()][getPlayerRow()] != 1 && babyCarryFlag == 1)
@@ -275,7 +277,7 @@ void setPlayer(int col, int row)
 			if(firstMove == 0)
 			{
 				checkFox();
-				babyHunger--;
+				//babyHunger--;
 				if(babyHunger <= 0)
 				{
 					setMessage(18);
@@ -290,7 +292,8 @@ void setPlayer(int col, int row)
 				firstMove = 0;
 		}
 	}
-	else if(gameOver == 1)
+
+	if(gameOver == 1)
 	{
 		setMessage(12);
 	}
@@ -415,41 +418,57 @@ void dropBaby()
 		{
 			piecesArray[getPlayerCol() - 1][getPlayerRow() - 1] = 2;
 			babyIsPlaced = 1;
+			babyX = getPlayerCol() - 1;
+			babyY = getPlayerRow() - 1;
 		}
 		else if(babyPos == 1 && isValid(getPlayerCol(), getPlayerRow() - 1) && piecesArray[getPlayerCol()][getPlayerRow() - 1] == 0)
 		{
-					piecesArray[getPlayerCol()][getPlayerRow() - 1] = 2;
-					babyIsPlaced = 1;
+			piecesArray[getPlayerCol()][getPlayerRow() - 1] = 2;
+			babyIsPlaced = 1;
+			babyX = getPlayerCol();
+			babyY = getPlayerRow() - 1;
 		}
 		else if(babyPos == 2 && isValid(getPlayerCol() + 1, getPlayerRow() - 1) && piecesArray[getPlayerCol() + 1][getPlayerRow() - 1] == 0)
 		{
-					piecesArray[getPlayerCol() + 1][getPlayerRow() - 1] = 2;
-					babyIsPlaced = 1;
+			piecesArray[getPlayerCol() + 1][getPlayerRow() - 1] = 2;
+			babyIsPlaced = 1;
+			babyX = getPlayerCol() + 1;
+			babyY = getPlayerRow() - 1;
 		}
 		else if(babyPos == 3 && isValid(getPlayerCol() + 1, getPlayerRow()) && piecesArray[getPlayerCol() + 1][getPlayerRow()] == 0)
 		{
-					piecesArray[getPlayerCol() + 1][getPlayerRow()] = 2;
-					babyIsPlaced = 1;
+			piecesArray[getPlayerCol() + 1][getPlayerRow()] = 2;
+			babyIsPlaced = 1;
+			babyX = getPlayerCol() + 1;
+			babyY = getPlayerRow();
 		}
 		else if(babyPos == 4 && isValid(getPlayerCol() + 1, getPlayerRow() + 1) && piecesArray[getPlayerCol() + 1][getPlayerRow() + 1] == 0)
 		{
-					piecesArray[getPlayerCol() + 1][getPlayerRow() + 1] = 2;
-					babyIsPlaced = 1;
+			piecesArray[getPlayerCol() + 1][getPlayerRow() + 1] = 2;
+			babyIsPlaced = 1;
+			babyX = getPlayerCol() + 1;
+			babyY = getPlayerRow() + 1;
 		}
 		else if(babyPos == 5 && isValid(getPlayerCol(), getPlayerRow() + 1) && piecesArray[getPlayerCol()][getPlayerRow() + 1] == 0)
 		{
-					piecesArray[getPlayerCol()][getPlayerRow() + 1] = 2;
-					babyIsPlaced = 1;
+			piecesArray[getPlayerCol()][getPlayerRow() + 1] = 2;
+			babyIsPlaced = 1;
+			babyX = getPlayerCol();
+			babyY = getPlayerRow() + 1;
 		}
 		else if(babyPos == 6 && isValid(getPlayerCol() - 1, getPlayerRow() + 1) && piecesArray[getPlayerCol() - 1][getPlayerRow() + 1] == 0)
 		{
-					piecesArray[getPlayerCol() - 1][getPlayerRow() + 1] = 2;
-					babyIsPlaced = 1;
+			piecesArray[getPlayerCol() - 1][getPlayerRow() + 1] = 2;
+			babyIsPlaced = 1;
+			babyX = getPlayerCol() - 1;
+			babyY = getPlayerRow() + 1;
 		}
 		else if(babyPos == 7 && isValid(getPlayerCol() - 1, getPlayerRow()) && piecesArray[getPlayerCol() - 1][getPlayerRow()] == 0)
 		{
-					piecesArray[getPlayerCol() - 1][getPlayerRow()] = 2;
-					babyIsPlaced = 1;
+			piecesArray[getPlayerCol() - 1][getPlayerRow()] = 2;
+			babyIsPlaced = 1;
+			babyX = getPlayerCol() - 1;
+			babyY = getPlayerRow();
 		}
 	} while(babyIsPlaced == 0);
 
@@ -494,65 +513,123 @@ void checkFox()
 		}//fox is on the board
 		else if((foxX != -1 && foxY != -1) && babyCarryFlag != 2)
 		{
-			int foxPos = (rand() % 8);
+			int foxPos = (rand() % 11);
 			if(foxPos == 0)
+			{
 				moveFox(-1,-1);
+				foxFacingRight = 0;
+			}
 			else if(foxPos == 1)
+			{
 				moveFox(0,-1);
+
+			}
 			else if(foxPos == 2)
+			{
 				moveFox(1,-1);
+				foxFacingRight = 1;
+			}
 			else if(foxPos == 3)
+			{
 				moveFox(1,0);
+				foxFacingRight = 1;
+			}
 			else if(foxPos == 4)
+			{
 				moveFox(1,1);
+				foxFacingRight = 1;
+			}
 			else if(foxPos == 5)
+			{
 				moveFox(0,1);
+
+			}
 			else if(foxPos == 6)
+			{
 				moveFox(-1,1);
+				foxFacingRight = 0;
+			}
 			else if(foxPos == 7)
+			{
 				moveFox(-1,0);
+				foxFacingRight = 0;
+			}
+			else if((foxPos == 8 || foxPos == 9 || foxPos == 10) && directionBaby() != 0)
+			{
+				moveFox(directionBaby(),rand() % 3 - 1);
+				if(directionBaby() == -1)
+					foxFacingRight = 0;
+				else if(directionBaby() == 1)
+					foxFacingRight = 1;
+			}
 		}//fox is on the board with the baby!
 		else if((foxX != -1 && foxY != -1) && babyCarryFlag == 2)
 		{
-			if(foxMovedLastTurn == 1)
-				foxMovedLastTurn = 0;
-			else if(foxMovedLastTurn == 0)
+			if(piecesArray[foxX][foxY] != 13 && piecesArray[foxX][foxY] != 15)
 			{
-				foxMovedLastTurn = 1;
-				if(piecesArray[foxX][foxY] != 13 && piecesArray[foxX][foxY] != 15)
+				int foxPos = (rand() % 11);
+				if(foxPos == 0)
 				{
-					int foxPos = (rand() % 8);
-					if(foxPos == 0)
-						moveFox(-1,-1);
-					else if(foxPos == 1)
-						moveFox(0,-1);
-					else if(foxPos == 2)
-						moveFox(1,-1);
-					else if(foxPos == 3)
-						moveFox(1,0);
-					else if(foxPos == 4)
-						moveFox(1,1);
-					else if(foxPos == 5)
-						moveFox(0,1);
-					else if(foxPos == 6)
-						moveFox(-1,1);
-					else if(foxPos == 7)
-						moveFox(-1,0);
+					moveFox(-1,-1);
+					foxFacingRight = 0;
 				}
-				else if(piecesArray[foxX][foxY] == 13)
+				else if(foxPos == 1)
 				{
-					piecesArray[foxX][foxY] = 12;
-					foxX = -1;
-					foxY = -1;
-					gameOver = 1;
+					moveFox(0,-1);
+
 				}
-				else if(piecesArray[foxX][foxY] == 15)
+				else if(foxPos == 2)
 				{
-					piecesArray[foxX][foxY] = 14;
-					foxX = -1;
-					foxY = -1;
-					gameOver = 1;
+					moveFox(1,-1);
+					foxFacingRight = 1;
 				}
+				else if(foxPos == 3)
+				{
+					moveFox(1,0);
+					foxFacingRight = 1;
+				}
+				else if(foxPos == 4)
+				{
+					moveFox(1,1);
+					foxFacingRight = 1;
+				}
+				else if(foxPos == 5)
+				{
+					moveFox(0,1);
+
+				}
+				else if(foxPos == 6)
+				{
+					moveFox(-1,1);
+					foxFacingRight = 0;
+				}
+				else if(foxPos == 7)
+				{
+					moveFox(-1,0);
+					foxFacingRight = 0;
+				}
+				else if((foxPos == 8 || foxPos == 9 || foxPos == 10) && directionDen() != 0)
+				{
+					moveFox(directionDen(),rand() % 3 - 1);
+					if(directionDen() == -1)
+						foxFacingRight = 0;
+					else if(directionDen() == 1)
+						foxFacingRight = 1;
+				}
+			}
+			else if(piecesArray[foxX][foxY] == 13)
+			{
+				piecesArray[foxX][foxY] = 12;
+				foxX = -1;
+				foxY = -1;
+				gameOver = 1;
+			}
+			else if(piecesArray[foxX][foxY] == 15)
+			{
+				piecesArray[foxX][foxY] = 14;
+				foxX = -1;
+				foxY = -1;
+				gameOver = 1;
 			}
 		}
 }
@@ -595,13 +672,37 @@ void moveFox(int col, int row)
 void setMessage(int messageNum)
 {
 	if(messageFlag == 18 || messageFlag == 6 || messageFlag == 12)
-		;
-	if(messageFlag == 2 && messageNum == 19)
-		;
-	if(messageFlag == 2 && messageNum == 5)
-		;
+		;//Don't change message if gameOver
+	else if(messageFlag == 2 && messageNum == 19)
+		;//Let the instructions for dropping worms be seen
+	else if(messageFlag == 2 && messageNum == 5)
+		;//When at bird don't tell player to go there, instead drop worms message is okay
+	else if(messageFlag == 15 && messageNum == 11)
+		;//Don't overwrite the message to Peck the wolf
+	else if(messageFlag == 11 && (messageNum != 15 && messageNum != 12 && messageNum != 6 && messageNum != 18))
+		;//Don't overwrite the message to go get the wolf
 	else
 		messageFlag = messageNum;
+}
+
+int directionBaby()
+{
+	if(babyX > foxX)
+		return 1;
+	else if(babyX < foxX)
+		return -1;
+	else
+		return 0;
+}
+
+int directionDen()
+{
+	if(foxOriginX > foxX)
+		return 1;
+	else if(foxOriginX < foxX)
+		return -1;
+	else
+		return 0;
 }
 //empty space = 0
 //momma bird = 1
