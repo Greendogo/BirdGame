@@ -51,12 +51,12 @@ int babyHunger;
 
 void gameTask(void *pvParameters)
 {
-	unsigned long delay = TICK_R * 50.0;
+	unsigned long delay = TICK_R * 100.0;
 	srand ( selectTimer );
 	createBoard();
 
+
 	while(true) {
-		speakerPlay = 0;
 		if(NORTH == 1)
 		{
 			setPlayer(getPlayerCol(), getPlayerRow() - 1);
@@ -113,7 +113,6 @@ void gameTask(void *pvParameters)
 				else if(piecesArray[getPlayerCol()][getPlayerRow()] == 9)
 				{
 					piecesArray[getPlayerCol()][getPlayerRow()] = 1;
-					speakerPlay = 1;
 					wormsFound++;
 					setMessage(4);
 				}
@@ -318,6 +317,23 @@ void setPlayer(int col, int row)
 
 void removePlayer()
 {
+//	unsigned long song1[2][5] = {
+//			{
+//					440,
+//					880,
+//					440,
+//					880,
+//					220
+//			},
+//			{
+//					2,
+//					2,
+//					2,
+//					2,
+//					2
+//			}
+//	};
+	playSong(312);
 	if(piecesArray[PlayerX][PlayerY] == 1)
 	{
 		piecesArray[PlayerX][PlayerY] = 0;
