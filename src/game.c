@@ -16,7 +16,7 @@
 #include "buttons.h"
 
 #include "stdlib.h"
-#include "time.h"
+//#include "time.h"
 #include "speaker.h"
 
 int piecesArray[9][4];
@@ -333,7 +333,6 @@ void removePlayer()
 //					2
 //			}
 //	};
-	playSong(312);
 	if(piecesArray[PlayerX][PlayerY] == 1)
 	{
 		piecesArray[PlayerX][PlayerY] = 0;
@@ -696,6 +695,7 @@ void moveFox(int col, int row)
 
 void setMessage(int messageNum)
 {
+	playSong(messageNum);
 	if(messageFlag == 18 || messageFlag == 6 || messageFlag == 12)
 		;//Don't change message if gameOver
 	else if(messageFlag == 2 && messageNum == 19)
@@ -708,7 +708,7 @@ void setMessage(int messageNum)
 		;//Don't overwrite the message to go get the wolf
 	else if(messageFlag == 14 && (messageNum != 19 && messageNum != 18 && messageNum != 16))
 		;//Don't let anything besides hunger and dropping the baby remove the drop instructions
-	else if(messageFlag == 17 && (messageNum != 19 && messageNum != 18 && messageNum != 14))
+	else if(messageFlag == 17 && (messageNum != 19 && messageNum != 18 && messageNum != 14 && messageNum != 16))
 		;//Make sure they know they've picked up the baby!
 	else
 		messageFlag = messageNum;

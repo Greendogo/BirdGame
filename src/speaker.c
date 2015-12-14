@@ -26,8 +26,8 @@ unsigned long speakerPeriod;
 unsigned long countEnd;
 int speakerBusy;
 
-short songNotes[312];
-short songTimes[312];
+short songNotes[3];
+short songTimes[3];
 int length;
 int note;
 
@@ -69,8 +69,8 @@ void speakerTask(void *pvParameters)
 		else if(note == length)//To save processing
 		{
 			speakerPeriod = TICK_R;
-			note = 0;
-			length = 312;
+			note = 1;
+			length = 0;
 			speakerBusy = 0;
 		}
 		vTaskDelay(speakerPeriod);
@@ -87,649 +87,251 @@ void playSound(short freq, short duration)
 	speakerPeriod = SYSTICK_FREQUENCY/(freq*2);
 }
 
-void playSong(int lengthOfSong)//, unsigned long* song[2])
+void playSong(int messageNum)//, unsigned long* song[2])
 {
+	int lengthOfSong = 0;
 	if(speakerBusy == 0)
 	{
-		speakerBusy = 1;
 //		short song1[2][9] ={{440,0,880,0,440,0,880,0,220},{100,100,100,100,100,100,100,100,100}};
-		short song1[2][312] =
+		if(messageNum == 4)
 		{
-				{
-				660,
-				0,
-				660,
-				0,
-				660,
-				0,
-				510,
-				0,
-				660,
-				0,
-				770,
-				0,
-				380,
-				0,
-				510,
-				0,
-				380,
-				0,
-				320,
-				0,
-				440,
-				0,
-				480,
-				0,
-				450,
-				0,
-				430,
-				0,
-				380,
-				0,
-				660,
-				0,
-				760,
-				0,
-				860,
-				0,
-				700,
-				0,
-				760,
-				0,
-				660,
-				0,
-				520,
-				0,
-				580,
-				0,
-				480,
-				0,
-				510,
-				0,
-				380,
-				0,
-				320,
-				0,
-				440,
-				0,
-				480,
-				0,
-				450,
-				0,
-				430,
-				0,
-				380,
-				0,
-				660,
-				0,
-				760,
-				0,
-				860,
-				0,
-				700,
-				0,
-				760,
-				0,
-				660,
-				0,
-				520,
-				0,
-				580,
-				0,
-				480,
-				0,
-				500,
-				0,
-				760,
-				0,
-				720,
-				0,
-				680,
-				0,
-				620,
-				0,
-				650,
-				0,
-				380,
-				0,
-				430,
-				0,
-				500,
-				0,
-				430,
-				0,
-				500,
-				0,
-				570,
-				0,
-				500,
-				0,
-				760,
-				0,
-				720,
-				0,
-				680,
-				0,
-				620,
-				0,
-				650,
-				0,
-				1020,
-				0,
-				1020,
-				0,
-				1020,
-				0,
-				380,
-				0,
-				500,
-				0,
-				760,
-				0,
-				720,
-				0,
-				680,
-				0,
-				620,
-				0,
-				650,
-				0,
-				380,
-				0,
-				430,
-				0,
-				500,
-				0,
-				430,
-				0,
-				500,
-				0,
-				570,
-				0,
-				585,
-				0,
-				550,
-				0,
-				500,
-				0,
-				380,
-				0,
-				500,
-				0,
-				500,
-				0,
-				500,
-				0,
-				500,
-				0,
-				760,
-				0,
-				720,
-				0,
-				680,
-				0,
-				620,
-				0,
-				650,
-				0,
-				380,
-				0,
-				430,
-				0,
-				500,
-				0,
-				430,
-				0,
-				500,
-				0,
-				570,
-				0,
-				500,
-				0,
-				760,
-				0,
-				720,
-				0,
-				680,
-				0,
-				620,
-				0,
-				650,
-				0,
-				1020,
-				0,
-				1020,
-				0,
-				1020,
-				0,
-				380,
-				0,
-				500,
-				0,
-				760,
-				0,
-				720,
-				0,
-				680,
-				0,
-				620,
-				0,
-				650,
-				0,
-				380,
-				0,
-				430,
-				0,
-				500,
-				0,
-				430,
-				0,
-				500,
-				0,
-				570,
-				0,
-				585,
-				0,
-				550,
-				0,
-				500,
-				0,
-				380,
-				0,
-				500,
-				0,
-				500,
-				0,
-				500,
-				0,
-				500,
-				0,
-				500,
-				0,
-				500,
-				0,
-				500,
-				0,
-				580,
-				0,
-				660,
-				0,
-				500,
-				0,
-				430,
-				0,
-				380,
-				0,
-				500,
-				0,
-				500,
-				0,
-				500,
-				0,
-				500,
-				0,
-				580,
-				0,
-				660,
-				0,
-				870,
-				0,
-				760,
-				0,
-				500,
-				0,
-				500,
-				0,
-				500,
-				0,
-				500,
-				0,
-				580,
-				0,
-				660,
-				0,
-				500,
-				0,
-				430,
-				0,
-				380,
-				0,
-				660,
-				0,
-				660,
-				0,
-				660,
-				0,
-				510,
-				0,
-				660,
-				0,
-				770,
-				0,
-				380,
-				0
-				},
-				{
-				100,
-				150,
-				100,
-				300,
-				100,
-				300,
-				100,
-				100,
-				100,
-				300,
-				100,
-				550,
-				100,
-				575,
-				100,
-				450,
-				100,
-				400,
-				100,
-				500,
-				100,
-				300,
-				80,
-				330,
-				100,
-				150,
-				100,
-				300,
-				100,
-				200,
-				80,
-				200,
-				50,
-				150,
-				100,
-				300,
-				80,
-				150,
-				50,
-				350,
-				80,
-				300,
-				80,
-				150,
-				80,
-				150,
-				80,
-				500,
-				100,
-				450,
-				100,
-				400,
-				100,
-				500,
-				100,
-				300,
-				80,
-				330,
-				100,
-				150,
-				100,
-				300,
-				100,
-				200,
-				80,
-				200,
-				50,
-				150,
-				100,
-				300,
-				80,
-				150,
-				50,
-				350,
-				80,
-				300,
-				80,
-				150,
-				80,
-				150,
-				80,
-				500,
-				100,
-				300,
-				100,
-				100,
-				100,
-				150,
-				100,
-				150,
-				150,
-				300,
-				150,
-				300,
-				100,
-				150,
-				100,
-				150,
-				100,
-				300,
-				100,
-				150,
-				100,
-				100,
-				100,
-				220,
-				100,
-				300,
-				100,
-				100,
-				100,
-				150,
-				100,
-				150,
-				150,
-				300,
-				200,
-				300,
-				80,
-				300,
-				80,
-				150,
-				80,
-				300,
-				100,
-				300,
-				100,
-				300,
-				100,
-				100,
-				100,
-				150,
-				100,
-				150,
-				150,
-				300,
-				150,
-				300,
-				100,
-				150,
-				100,
-				150,
-				100,
-				300,
-				100,
-				150,
-				100,
-				100,
-				100,
-				420,
-				100,
-				450,
-				100,
-				420,
-				100,
-				360,
-				100,
-				300,
-				100,
-				300,
-				100,
-				150,
-				100,
-				300,
-				100,
-				300,
-				100,
-				100,
-				100,
-				150,
-				100,
-				150,
-				150,
-				300,
-				150,
-				300,
-				100,
-				150,
-				100,
-				150,
-				100,
-				300,
-				100,
-				150,
-				100,
-				100,
-				100,
-				220,
-				100,
-				300,
-				100,
-				100,
-				100,
-				150,
-				100,
-				150,
-				150,
-				300,
-				200,
-				300,
-				80,
-				300,
-				80,
-				150,
-				80,
-				300,
-				100,
-				300,
-				100,
-				300,
-				100,
-				100,
-				100,
-				150,
-				100,
-				150,
-				150,
-				300,
-				150,
-				300,
-				100,
-				150,
-				100,
-				150,
-				100,
-				300,
-				100,
-				150,
-				100,
-				100,
-				100,
-				420,
-				100,
-				450,
-				100,
-				420,
-				100,
-				360,
-				100,
-				300,
-				100,
-				300,
-				100,
-				150,
-				100,
-				300,
-				60,
-				150,
-				80,
-				300,
-				60,
-				350,
-				80,
-				150,
-				80,
-				350,
-				80,
-				150,
-				80,
-				300,
-				80,
-				150,
-				80,
-				600,
-				60,
-				150,
-				80,
-				300,
-				60,
-				350,
-				80,
-				150,
-				80,
-				150,
-				80,
-				550,
-				80,
-				325,
-				80,
-				600,
-				60,
-				150,
-				80,
-				300,
-				60,
-				350,
-				80,
-				150,
-				80,
-				350,
-				80,
-				150,
-				80,
-				300,
-				80,
-				150,
-				80,
-				600,
-				100,
-				150,
-				100,
-				300,
-				100,
-				300,
-				100,
-				100,
-				100,
-				300,
-				100,
-				550,
-				100,
-				575
-				}
-		};
-		for(length = 0; length < lengthOfSong; length++)
-		{
-			songNotes[length] = song1[0][length];
-			songTimes[length] = song1[1][length];
+			speakerBusy = 1;
+			lengthOfSong = 3;
+			short sound[2][3] =	{
+					{
+					440,
+					0,
+					880
+					},
+					{
+					75,
+					75,
+					75
+					}
+					};
+			for(length = 0; length < lengthOfSong; length++)
+			{
+				songNotes[length] = sound[0][length];
+				songTimes[length] = sound[1][length];
+			}
+			note = 0;
+			length = lengthOfSong;
 		}
-		note = 0;
-		length = lengthOfSong;
+		else if(messageNum == 7)
+		{
+			speakerBusy = 1;
+			lengthOfSong = 3;
+			short sound[2][3] = {
+					{
+					240,
+					0,
+					220
+					},
+					{
+					75,
+					75,
+					75
+					}
+					};
+			for(length = 0; length < lengthOfSong; length++)
+			{
+				songNotes[length] = sound[0][length];
+				songTimes[length] = sound[1][length];
+			}
+			note = 0;
+			length = lengthOfSong;
+		}
+		else if(messageNum == 6)
+		{
+			speakerBusy = 1;
+			lengthOfSong = 3;
+			short sound[2][3] = {
+					{
+					660,
+					960,
+					1060
+					},
+					{
+					100,
+					100,
+					100
+					}
+					};
+			for(length = 0; length < lengthOfSong; length++)
+			{
+				songNotes[length] = sound[0][length];
+				songTimes[length] = sound[1][length];
+			}
+			note = 0;
+			length = lengthOfSong;
+		}
+		else if(messageNum == 7)
+		{
+			speakerBusy = 1;
+			lengthOfSong = 3;
+			short sound[2][3] = {
+					{
+					240,
+					0,
+					220
+					},
+					{
+					75,
+					75,
+					75
+					}
+					};
+			for(length = 0; length < lengthOfSong; length++)
+			{
+				songNotes[length] = sound[0][length];
+				songTimes[length] = sound[1][length];
+			}
+			note = 0;
+			length = lengthOfSong;
+		}
+		else if(messageNum == 12 || messageNum == 18)
+		{
+			speakerBusy = 1;
+			lengthOfSong = 3;
+			short sound[2][3] = {
+					{
+					680,
+					460,
+					240
+					},
+					{
+					100,
+					100,
+					100
+					}
+					};
+			for(length = 0; length < lengthOfSong; length++)
+			{
+				songNotes[length] = sound[0][length];
+				songTimes[length] = sound[1][length];
+			}
+			note = 0;
+			length = lengthOfSong;
+		}
+		else if(messageNum == 8)
+		{
+			speakerBusy = 1;
+			lengthOfSong = 3;
+			short sound[2][3] = {
+					{
+					880,
+					880,
+					960
+					},
+					{
+					100,
+					100,
+					100
+					}
+					};
+			for(length = 0; length < lengthOfSong; length++)
+			{
+				songNotes[length] = sound[0][length];
+				songTimes[length] = sound[1][length];
+			}
+			note = 0;
+			length = lengthOfSong;
+		}
+		else if(messageNum == 10)
+		{
+			speakerBusy = 1;
+			lengthOfSong = 3;
+			short sound[2][3] = {
+					{
+					880,
+					660,
+					440
+					},
+					{
+					100,
+					100,
+					100
+					}
+					};
+			for(length = 0; length < lengthOfSong; length++)
+			{
+				songNotes[length] = sound[0][length];
+				songTimes[length] = sound[1][length];
+			}
+			note = 0;
+			length = lengthOfSong;
+		}
+		else if(messageNum == 17)
+		{
+			speakerBusy = 1;
+			lengthOfSong = 3;
+			short sound[2][3] = {
+					{
+					880,
+					0,
+					0
+					},
+					{
+					100,
+					20,
+					20
+					}
+					};
+			for(length = 0; length < lengthOfSong; length++)
+			{
+				songNotes[length] = sound[0][length];
+				songTimes[length] = sound[1][length];
+			}
+			note = 0;
+			length = lengthOfSong;
+		}
+		else if(messageNum == 16)
+		{
+			speakerBusy = 1;
+			lengthOfSong = 3;
+			short sound[2][3] = {
+					{
+					440,
+					0,
+					0
+					},
+					{
+					100,
+					20,
+					20
+					}
+					};
+			for(length = 0; length < lengthOfSong; length++)
+			{
+				songNotes[length] = sound[0][length];
+				songTimes[length] = sound[1][length];
+			}
+			note = 0;
+			length = lengthOfSong;
+		}
+		else if(messageNum == 11)
+		{
+			speakerBusy = 1;
+			lengthOfSong = 3;
+			short sound[2][3] = {
+					{
+					440,
+					660,
+					440
+					},
+					{
+					100,
+					100,
+					100
+					}
+					};
+			for(length = 0; length < lengthOfSong; length++)
+			{
+				songNotes[length] = sound[0][length];
+				songTimes[length] = sound[1][length];
+			}
+			note = 0;
+			length = lengthOfSong;
+		}
 	}
 }

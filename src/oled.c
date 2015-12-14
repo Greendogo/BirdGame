@@ -27,6 +27,7 @@
 #include "stdio.h"
 #include "buttons.h"
 #include "game.h"
+#include "speaker.h"
 
 unsigned char lframe[94], rframe[94], hframe[64], blank[62];
 

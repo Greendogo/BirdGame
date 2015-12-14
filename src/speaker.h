@@ -21,6 +21,6 @@ extern void speakerTask(void*);
 
 extern void playSound(short freq, short duration);
 
-extern void playSong(int length);//, unsigned long* song[2]);
+extern void playSong(int messageNum);//, unsigned long* song[2]);
 
 #endif /* EECS_388_FREERTOS__SRC_SPEAKER_H_ */
