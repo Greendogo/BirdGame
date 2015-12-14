@@ -96,15 +96,20 @@ void startScreen(void){
 	RIT128x96x4StringDraw("Paul McElroy ^_^", 8, 8-3, 15);
 	RIT128x96x4StringDraw("Collect Worms to", 3, 16-3, 15);
 	RIT128x96x4StringDraw("feed your baby bird!", 3, 24-3, 15);
-	RIT128x96x4StringDraw("Momma Bird (You): @", 3, 32-3, 15);
-	RIT128x96x4StringDraw("Baby Bird: &", 3, 40-3, 15);
-	RIT128x96x4StringDraw("Worms: ~", 3, 48-3, 15);
-	RIT128x96x4StringDraw("Dirt Patch: #", 3, 56-3, 15);
+	RIT128x96x4StringDraw("Momma Bird (You): ", 3, 32-3, 15);
+	RIT128x96x4StringDraw("Baby Bird:", 3, 40-3, 15);
+	RIT128x96x4StringDraw("Worms:", 3, 48-3, 15);
+	RIT128x96x4StringDraw("Dirt Patch:", 3, 56-3, 15);
 	RIT128x96x4StringDraw("(Worms hide in Dirt)", 3, 64-3, 15);
-	RIT128x96x4StringDraw(" Press the", 32, 72-3, 15);
-	RIT128x96x4StringDraw("\"Select\" Button", 16, 80-3, 15);
+	RIT128x96x4StringDraw("Keep Baby from Fox:", 3, 72-3, 15);
+	RIT128x96x4StringDraw("Press \"Select\"", 20, 80-3, 15);
 	RIT128x96x4StringDraw("To Continue", 32, 88-3, 15);
 
+	drawPiece('@', 111 - 3, 29);
+	drawPiece('&', 69, 37);
+	drawPiece('~', 69 + 12 + 6, 45 - 3);
+	drawPiece('#', 69 + 24 + 12, 53 - 7);
+	drawPiece('F', 111, 69 + 9);
 	unsigned long begin, end;
 
 	selectTimer = 0;
