@@ -20,7 +20,7 @@ void main(void)  {
 	xTaskCreate(LEDTask, "LEDTask", 32, NULL, 1, NULL);
 	xTaskCreate(buttonsTask, "buttonsTask", 256, NULL, 1, NULL);
 	xTaskCreate(gameTask, "gameTask", 512, NULL, 2, NULL);
-	xTaskCreate(speakerTask, "speakerTask", 256, NULL, 4, NULL);
+	xTaskCreate(speakerTask, "speakerTask", 32, NULL, 4, NULL);
 
 
 	//  Initialize system
